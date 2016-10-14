@@ -8,12 +8,10 @@
     $uname = $_POST['login'];
     $pass = $_POST['pwd'];
 
-    $help = (isset($_POST['login'])AND isset($_POST['pwd']));
-    if ($help){
-        Db::connect();
-        Db::register($uname, $pass);
-        echo $uname;
-        echo $pass;
-        Db::quit();
+    if (($uname !== "") AND ($pass !== "")){
+        $db = new Db();
+        $db->connect();
+        $db->register($uname, $pass);
+        $db->quit();
     }
 ?>
