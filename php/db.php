@@ -6,10 +6,10 @@
  * Time: 15:10
  */
 class Db{
-    function connect(){
+    public function connect(){
         try {
-//            $conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
-//            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             echo 'Connected';
         } catch
@@ -18,15 +18,10 @@ class Db{
         };
     }
     function register($user, $password){
-        $conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $register = $conn->prepare("INSERT INTO users (uname, pass) 
-    VALUES (:uname, :pass)");
-        $register->bindParam(':uname', $user);
-        $register->bindParam(':pass', $password);
+        $register = $conn->prepare("INSERT INTO users (uname, pass) VALUES ($user, $password)");
         $register->execute();
     }
-    function quit(){
+    public function quit(){
         $conn = null;
     }
 }

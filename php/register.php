@@ -5,13 +5,15 @@
     echo $twig->render('container.twig');
     echo $twig->render('register.twig');
 
-    $uname = isset($_POST['login']);
-    $pass = isset($_POST['pwd']);
+    $uname = $_POST['login'];
+    $pass = $_POST['pwd'];
 
-    $help = $_POST['login'];
+    $help = (isset($_POST['login'])AND isset($_POST['pwd']));
     if ($help){
-//        Db::connect();
+        $connected = Db::connect();
         Db::register($uname, $pass);
+        echo $uname;
+        echo $pass;
         Db::quit();
     }
 ?>
