@@ -26,6 +26,8 @@ class Db{
     }
     function collision($user){
         //TODO: check if user exist in db
+        $check = $this->$conn("SELECT users FROM users");
+        var_dump($check);
     }
     public function quit(){
         $conn = null;
