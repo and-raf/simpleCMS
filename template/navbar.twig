@@ -4,7 +4,6 @@
         <div class="col-md-4">
             <a href="php/register.php">Sign up</a>
             <a href="php/login.php">Sign in</a>
-            <a href="">test</a>
         </div>
     </div>
 </section>

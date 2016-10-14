@@ -10,7 +10,7 @@
 
     $help = (isset($_POST['login'])AND isset($_POST['pwd']));
     if ($help){
-        $connected = Db::connect();
+        Db::connect();
         Db::register($uname, $pass);
         echo $uname;
         echo $pass;
