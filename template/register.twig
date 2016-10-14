@@ -1,14 +1,15 @@
 <section id="register">
     <div class="container">
-    <form class="form-inline">
+    <form class="form-inline" action="register.php" method="post">
         <div class="form-group">
-            <label class="sr-only" for="login">Username:</label>
-            <input type="text" class="form-control" id="login">
+            <label for="login">Username:</label>
+            <input type="text" class="form-control" id="login" name="login">
         </div><br/>
         <div class="form-group">
-            <label class="sr-only" for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
         </div>
+        <button class="btn btn-default" value="submit">Submit</button>
     </form>
     </div>
 </section>
