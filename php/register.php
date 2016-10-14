@@ -8,10 +8,12 @@
     $uname = $_POST['login'];
     $pass = $_POST['pwd'];
 
-    if (($uname !== "") AND ($pass !== "")){
+    //TODO: validation, better post handling
+    if (($_POST['login'] !== "") AND ($_POST['pwd'] !== "")){
         $db = new Db();
         $db->connect();
         $db->register($uname, $pass);
         $db->quit();
+        echo "chuj";
     }
 ?>

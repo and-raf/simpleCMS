@@ -24,6 +24,9 @@ class Db{
             "username" => $password,
             "password" => $user));
     }
+    function collision($user){
+        //TODO: check if user exist in db
+    }
     public function quit(){
         $conn = null;
     }
