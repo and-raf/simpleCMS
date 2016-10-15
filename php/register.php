@@ -7,7 +7,7 @@
 
     if (!empty($_POST)) {
         $uname = htmlspecialchars($_POST['login']);
-        $pass = htmlspecialchars($_POST['pwd']);
+        $pass = md5(htmlspecialchars($_POST['pwd']));
     }else{
         $uname = null;
         $pass = null;
@@ -26,10 +26,14 @@
     if (($uname !== null) AND $pass !== null){
         $db = new Db();
         $db->connect();
-        $db->collision($uname);
-//        $db->register($uname, $pass);
+        $exist = $db->collision($uname);
+        if ($exist){
+            echo 'User ' . $uname . ' already exist';
+        }else{
+            $db->register($uname, $pass);
+            $success = 1;
+        }
         $db->quit();
-//        $success = 1;
         $_POST = null;
     };
     if ($success){

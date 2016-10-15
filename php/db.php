@@ -7,6 +7,7 @@
  */
 class Db{
     public $conn;
+
     public function connect(){
         try {
             $this->conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
@@ -18,22 +19,26 @@ class Db{
             echo "Error: " . $e->getMessage();
         };
     }
+
     function register($user, $password){
         $register = $this->conn->prepare("INSERT INTO users (uname, pass) VALUES (:username, :password)");
         $register->execute(array(
             "username" => $user,
             "password" => $password));
     }
+
     function collision($user){
-        //TODO: check if user exist in db
         $values = $this->conn->query('SELECT uname from users');
         $values->execute();
-        $row = $values->fetch();
-        if (in_array($user, $row)){
-            echo 'User already exist<br/>';
+        $row = $values->fetchAll();
+        foreach ($row as $key => $value) {
+            if (in_array($user, $value)) {
+                return true;
+            }
         }
 
     }
+
     public function quit(){
         $conn = null;
     }
