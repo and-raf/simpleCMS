@@ -12,7 +12,7 @@ class Db{
             $this->conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            echo 'Connected';
+            echo 'Connected<br/>';
         } catch
         (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -21,13 +21,18 @@ class Db{
     function register($user, $password){
         $register = $this->conn->prepare("INSERT INTO users (uname, pass) VALUES (:username, :password)");
         $register->execute(array(
-            "username" => $password,
-            "password" => $user));
+            "username" => $user,
+            "password" => $password));
     }
     function collision($user){
         //TODO: check if user exist in db
-        $check = $this->$conn("SELECT users FROM users");
-        var_dump($check);
+        $values = $this->conn->query('SELECT uname from users');
+        $values->execute();
+        $row = $values->fetch();
+        if (in_array($user, $row)){
+            echo 'User already exist<br/>';
+        }
+
     }
     public function quit(){
         $conn = null;
