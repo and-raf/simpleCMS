@@ -6,21 +6,39 @@
  * Time: 15:10
  */
 class Db{
+    public $conn;
+
     public function connect(){
         try {
-            $conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn = new PDO('mysql:host=localhost;dbname=cms', 'root', '');
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            echo 'Connected';
+            echo 'Connected<br/>';
         } catch
         (PDOException $e) {
             echo "Error: " . $e->getMessage();
         };
     }
+
     function register($user, $password){
-        $register = $conn->prepare("INSERT INTO users (uname, pass) VALUES ($user, $password)");
-        $register->execute();
+        $register = $this->conn->prepare("INSERT INTO users (uname, pass) VALUES (:username, :password)");
+        $register->execute(array(
+            "username" => $user,
+            "password" => $password));
     }
+
+    function collision($user){
+        $values = $this->conn->query('SELECT uname from users');
+        $values->execute();
+        $row = $values->fetchAll();
+        foreach ($row as $key => $value) {
+            if (in_array($user, $value)) {
+                return true;
+            }
+        }
+
+    }
+
     public function quit(){
         $conn = null;
     }
